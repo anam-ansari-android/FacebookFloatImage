@@ -24,10 +24,12 @@ import android.widget.LinearLayout;
 
 import com.anam.floatimage.R;
 
-
+/***
+ * @author Anam Ansari
+ */
 public class FloatingCircle extends Service {
 
-    private ImageView smallCircle;
+    private ImageView smallCircle; //this is the image onscreen
     private ImageView close;
     private LinearLayout layout;
     private WindowManager windowManager;
@@ -124,7 +126,8 @@ public class FloatingCircle extends Service {
                             animator.stop();
                             break;
                         case MotionEvent.ACTION_UP:
-                            if (MathUtil.betweenExclusive(myParams.x, -100, 100) && !MathUtil.betweenExclusive(myParams.y, screen_height / 3, screen_height / 2)) { //moving to center range of screen
+                            if (MathUtil.betweenExclusive(myParams.x, -100, 100) && !MathUtil.betweenExclusive(myParams.y, screen_height / 3, screen_height / 2)) {
+                                //moving to center range of screen
 
 
                                 animator.start(screen_width / 2, myParams.y);
@@ -202,7 +205,7 @@ public class FloatingCircle extends Service {
                                 //move to left of screen
                                 if (MathUtil.betweenExclusive((int) event.getRawY(), 0, screen_height / 10)) {
 
-                                    // myParams.y = 0 ;
+
                                     animator.start(-screen_width / 2, -((screen_height / 2) - 150));
                                     android.view.ViewGroup.LayoutParams layoutParams = smallCircle.getLayoutParams();
                                     layoutParams.width = (int) (0.18 * screen_width);
@@ -358,6 +361,8 @@ public class FloatingCircle extends Service {
         }
     }
 
+
+    //this class is written to move the image to either corners if touch_up
     private class MoveAnimator implements Runnable {
 
         private Handler handler = new Handler(Looper.getMainLooper());
@@ -432,6 +437,6 @@ public class FloatingCircle extends Service {
         layout.setVisibility(View.INVISIBLE);
         close.startAnimation(shake);
 
-        return START_NOT_STICKY;
+        return START_STICKY; //system will try to recreate the service if in case its killed
     }
 }

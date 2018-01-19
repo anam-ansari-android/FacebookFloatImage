@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Float Image</string>
+    <string name="click">Click button to show Float image</string>
+    <string name="title_activity_main">MainActivity</string>
+</resources>
